@@ -11,6 +11,7 @@ import (
 type gatewayCtx struct {
 	accessToken string
 	slack       *slack.Client
+	port        string
 }
 
 var ctx = gatewayCtx{}
@@ -25,6 +26,11 @@ func initGatewayCtx() {
 	ctx.accessToken = os.Getenv("SLACK_GATEWAY_ACCESS_TOKEN")
 	if ctx.accessToken == "" {
 		panic("SLACK_GATEWAY_ACCESS_TOKEN isn't set")
+	}
+
+	ctx.port = os.Getenv("SLACK_GATEWAY_PORT")
+	if ctx.port == "" {
+		ctx.port = ":8080"
 	}
 }
 
@@ -69,5 +75,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	initGatewayCtx()
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(ctx.port, nil)
 }
