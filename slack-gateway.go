@@ -59,7 +59,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.WithFields(log.Fields{
 			"accessToken": token,
 		}).Error("unauthorized")
-		http.Error(w, "unauthorized", 400)
+		http.Error(w, "unauthorized", 401)
 		return
 	}
 
