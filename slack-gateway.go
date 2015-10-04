@@ -29,7 +29,6 @@ func initGatewayCtx() {
 }
 
 func postToSlack(username string, channel string, message string) {
-
 	param := slack.NewPostMessageParameters()
 	param.Username = username
 	_, _, err := ctx.slack.PostMessage(channel, message, param)
@@ -49,7 +48,6 @@ func postToSlack(username string, channel string, message string) {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-
 	token := r.FormValue("accessToken")
 	if token != ctx.accessToken {
 		log.WithFields(log.Fields{
